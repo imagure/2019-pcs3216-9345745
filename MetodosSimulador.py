@@ -72,14 +72,14 @@ class Rotinas(object):
 
     @staticmethod
     def get_data():
-        input_value = input("--------->  Digite um valor para o input: ")
+        input_value = input("---------> get_data: ")
         value = int("0x"+input_value, 0)
         print("get_data  value: ", value)
         return value
 
     @staticmethod
     def put_data(acumulador):
-        print("put_data  value: ", acumulador)
+        print("---------> put_data: ", acumulador)
 
     @staticmethod
     def halt_machine(operando):

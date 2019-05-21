@@ -6,8 +6,8 @@ class Simulador(MotorEventos):
 
     rotinas_dict = {
         "0": {"rotina": "jump", "tipo": "J"},
-        "1": {"rotina": "jump_if_zero", "tipo": "B"},
-        "2": {"rotina": "jump_if_negative", "tipo": "B"},
+        "1": {"rotina": "jump_if_zero", "tipo": "JIF"},
+        "2": {"rotina": "jump_if_negative", "tipo": "JIF"},
         "3": {"rotina": "load_value", "tipo": "L"},
         "4": {"rotina": "add", "tipo": "R"},
         "5": {"rotina": "subtract", "tipo": "R"},
@@ -50,7 +50,7 @@ class Simulador(MotorEventos):
             argumento3 = self.memory
             self.pc = rotina(argumento1, argumento2, argumento3)
 
-        elif tipo_instrucao == "B":
+        elif tipo_instrucao == "JIF":
             argumento1 = self.acumulador
             argumento2 = int("0x" + instrucao[1:4], 0)
             argumento3 = self.pc
