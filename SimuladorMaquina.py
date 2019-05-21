@@ -4,8 +4,6 @@ from MetodosSimulador import Rotinas
 
 class Simulador(MotorEventos):
 
-    memory = [None]*(2 ** 16)
-
     rotinas_dict = {
         "0": {"rotina": "jump", "tipo": "J"},
         "1": {"rotina": "jump_if_zero", "tipo": "B"},
@@ -19,17 +17,17 @@ class Simulador(MotorEventos):
         "9": {"rotina": "move_to_memory", "tipo": "S"},
         "A": {"rotina": "subroutine_call", "tipo": "SR"},
         "B": {"rotina": "return_from_subroutine", "tipo": "J"},
-        "C": {"rotina": "halt_machine", "tipo": "E"},
-        "D": {"rotina": "get_data", "tipo": "E"},
-        "E": {"rotina": "put_data", "tipo": "E"},
+        "C": {"rotina": "halt_machine", "tipo": "HM"},
+        "D": {"rotina": "get_data", "tipo": "I"},
+        "E": {"rotina": "put_data", "tipo": "O"},
         "F": {"rotina": "operating_system_call", "tipo": "E"},
-        "@": {"rotina": "origin", "tipo": "@"},
-        "#": {"rotina": "end", "tipo": "#"},
-        "K": {"rotina": "constant", "tipo": "K"}
     }
 
     def _identifica_instrucao(self, instrucao):
-        return instrucao[0]
+        if instrucao:
+            return instrucao[0]
+        else:
+            return
 
     def _executa_rotina(self, tipo_instrucao, instrucao):
         nome_rotina = self.rotinas_dict[tipo_instrucao]["rotina"]
@@ -71,10 +69,25 @@ class Simulador(MotorEventos):
             rotina(argumento1, argumento2, argumento3)
             self.pc += 1
 
+        elif tipo_instrucao == "I":
+            self.acumulador = rotina()
+            self.pc += 1
+
+        elif tipo_instrucao == "O":
+            argumento1 = self.acumulador
+            rotina(argumento1)
+            self.pc += 1
+
+        elif tipo_instrucao == "HM":
+            argumento1 = int("0x" + instrucao[1:4], 0)
+            self.pc = rotina(argumento1)
+
 
 if __name__=='__main__':
     simulador = Simulador()
-    simulador.memory[1] = '000F'
-    simulador.memory = ['8001', '4001', '5001', '2000']
+    simulador.memory[10] = '0001'
+    simulador.memory[11] = '000E'
+    exemplo = ['D000', '400A', '500B', 'E000', '2000', 'C000']
+    for item in exemplo:
+        simulador.memory[exemplo.index(item)] = item
     simulador.run()
-

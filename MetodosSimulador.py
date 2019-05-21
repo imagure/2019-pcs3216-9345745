@@ -30,7 +30,7 @@ class Rotinas(object):
     def subroutine_call(pc, endereco, memoria):
         memoria[endereco] = pc + 1
         print("subroutine_call  end:", endereco)
-        return endereco
+        return endereco+1
 
     @staticmethod
     def return_from_subroutine(endereco):
@@ -69,3 +69,19 @@ class Rotinas(object):
     def move_to_memory(acumulador, endereco, memoria):
         memoria[endereco] = acumulador
         print("move_to_memory  end:", endereco,  "value: ", memoria[endereco])
+
+    @staticmethod
+    def get_data():
+        input_value = input("--------->  Digite um valor para o input: ")
+        value = int("0x"+input_value, 0)
+        print("get_data  value: ", value)
+        return value
+
+    @staticmethod
+    def put_data(acumulador):
+        print("put_data  value: ", acumulador)
+
+    @staticmethod
+    def halt_machine(operando):
+        print("halt_machine  end: ", operando)
+        return operando
