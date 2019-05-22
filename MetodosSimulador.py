@@ -62,14 +62,15 @@ class Rotinas(object):
 
     @staticmethod
     def load_from_memory(memory, endereco, value):
-        value = int("0x"+memory[endereco], 0)
+        value = int("0x"+memory[endereco]+memory[endereco+1], 0)
         print("load_from_memory: ", value)
         return value
 
     @staticmethod
     def move_to_memory(acumulador, endereco, memoria):
-        memoria[endereco] = ('%04x' % acumulador)[2:]
-        print("move_to_memory  end:", endereco,  "value: ", memoria[endereco])
+        memoria[endereco] = ('%04x' % acumulador)[0:2]
+        memoria[endereco + 1] = ('%04x' % acumulador)[2:]
+        print("move_to_memory  end:", endereco,  "value: ", memoria[endereco]+memoria[endereco+1])
 
     @staticmethod
     def get_data():
