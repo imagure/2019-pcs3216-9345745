@@ -14,14 +14,12 @@ class MotorEventos(object):
     pc = 0
 
     def run(self):
-        while self.pc < len(self.lista_de_eventos):
-            execucao = "CONTINUE"
+        execucao = True
+        while self.pc < len(self.lista_de_eventos) and execucao:
             instrucao = self.lista_de_eventos[self.pc] + self.lista_de_eventos[self.pc+1]
             if instrucao:
                 tipo_instrucao = self._identifica_instrucao(instrucao)
                 execucao = self._executa_rotina(tipo_instrucao, instrucao)
-            if execucao == "FIM":
-                break
 
     @abc.abstractmethod
     def _identifica_instrucao(self, instrucao):

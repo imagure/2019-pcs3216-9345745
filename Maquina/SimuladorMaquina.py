@@ -88,5 +88,5 @@ class Simulador(MotorEventos):
         elif tipo_instrucao == "HM":
             argumento1 = int("0x"+(('%04x' % self.pc)[0:2]), 0) + int("0x" + instrucao[1:4], 0)
             self.pc = rotina(argumento1)
-            return "FIM"
-        return "CONTINUE"
+            return False
+        return True
