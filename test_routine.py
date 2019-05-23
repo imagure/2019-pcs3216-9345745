@@ -1,9 +1,11 @@
 from Maquina.Maquina import Simulador
 from Loader.Loader import Loader
+from Montador.MontadorDoisPassos import MontadorDoisPassos
 
 maquina = Simulador()
 maquina.set_lista_de_eventos((['00'] * (2 ** 10)))
 loader = Loader(maquina.lista_de_eventos)
+montador = MontadorDoisPassos()
 
 
 def testa_maquina():
@@ -40,7 +42,13 @@ def testa_loader_maquina():
     maquina.run()
 
 
+def testa_montador():
+    montador.set_lista_de_eventos('simbolic_code_files/test_code.txt')
+    montador.run()
+
+
 if __name__=='__main__':
     # testa_maquina()
     # testa_loader()
-    testa_loader_maquina()
+    # testa_loader_maquina()
+    testa_montador()
