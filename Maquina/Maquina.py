@@ -1,5 +1,5 @@
 from MotorEventosBase.MotorEventosBase import MotorEventos
-from Maquina.MetodosSimulador import Rotinas
+from Maquina.MaquinaRotinas import Rotinas
 
 
 class Simulador(MotorEventos):
@@ -90,3 +90,16 @@ class Simulador(MotorEventos):
             self.pc = rotina(argumento1)
             return False
         return True
+
+    def print_memoria(self, posicoes):
+        i = 1
+        print("           ----------------------------Posições de memória:------------------------------------")
+        print("              00   01   02   03   04   05   06   07   08   09   10   11   12   13   14   15")
+        print("           ------------------------------------------------------------------------------------")
+        print(" 000 - 015 | ", end=" ")
+        while i < posicoes + 1:
+            print(self.lista_de_eventos[i-1][0:2] + self.lista_de_eventos[i-1][2:], end="   ")
+            if i % 16 == 0 and (i+1) != posicoes + 1:
+                print("|\n %03d - %03d | " % (i, (i+15)), end=" ")
+            i += 1
+        print("|\n           ------------------------------------------------------------------------------------")
