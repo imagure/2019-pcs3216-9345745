@@ -36,3 +36,7 @@ class MotorEventos(object):
     @abc.abstractmethod
     def set_rotinas_dict(self):
         return
+
+    @abc.abstractmethod
+    def set_pc(self, pc):
+        return

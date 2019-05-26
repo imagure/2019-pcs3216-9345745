@@ -26,13 +26,13 @@ def testa_maquina():
 
 
 def testa_loader():
-    loader.set_lista_de_eventos('object_files/test_code.o')
+    loader.set_lista_de_eventos('object_files/test_code2.o')
     loader.run()
     maquina.print_memoria(64)
 
 
 def testa_loader_maquina():
-    loader.set_lista_de_eventos('object_files/test_code.o')
+    loader.set_lista_de_eventos('object_files/test_code2.o')
     loader.run()
     maquina.set_rotinas_dict()
     maquina.lista_de_eventos[64] = '01'
@@ -47,8 +47,29 @@ def testa_montador():
     montador.run()
 
 
+def testa_montador_loader():
+    montador.set_lista_de_eventos('simbolic_code_files/test_code.txt')
+    montador.run()
+    loader.set_lista_de_eventos('object_files/test_code2.o')
+    loader.run()
+    maquina.print_memoria(64)
+
+
+def testa_montador_loader_maquina():
+    montador.set_lista_de_eventos('simbolic_code_files/test_code.txt')
+    montador.run()
+    loader.set_lista_de_eventos('object_files/test_code2.o')
+    loader.run()
+    maquina.print_memoria(64)
+    maquina.set_pc(loader.get_initial_pc())
+    maquina.set_rotinas_dict()
+    maquina.run()
+
+
 if __name__=='__main__':
     # testa_maquina()
     # testa_loader()
     # testa_loader_maquina()
-    testa_montador()
+    # testa_montador()
+    # testa_montador_loader()
+    testa_montador_loader_maquina()

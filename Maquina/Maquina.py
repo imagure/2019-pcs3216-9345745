@@ -91,6 +91,9 @@ class Simulador(MotorEventos):
             return False
         return True
 
+    def set_pc(self, pc):
+        self.pc = pc
+
     def print_memoria(self, posicoes):
         i = 1
         print("           ----------------------------Posições de memória:------------------------------------")
