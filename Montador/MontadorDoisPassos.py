@@ -1,4 +1,3 @@
-import json
 
 
 class MontadorDoisPassos(object):
@@ -44,8 +43,7 @@ class MontadorDoisPassos(object):
             self.lista_de_eventos.append(line)
 
         self.name = input_file.strip("simbolic_code_files").strip(".txt").strip("/")
-        self.object_file = open("object_files/"+self.name+"2.o", "w+")
-        print("Arquivo: ", self.name)
+        self.object_file = open("object_files/"+self.name+".o", "w+")
 
     def limpa_comentarios(self, line):
         i = 0
@@ -66,8 +64,6 @@ class MontadorDoisPassos(object):
                 lista_simbolos = self.find_symbols(evento)
                 self.identify_symbols(lista_simbolos)
                 self.index += 1
-
-            self.print_tabela_simbolos()
 
             self.index = 0
             while self.index < len(self.lista_de_eventos):
@@ -151,6 +147,9 @@ class MontadorDoisPassos(object):
                     self.object_file.write(instrucao+"\n")
 
     def print_tabela_simbolos(self):
+        print("Nome do arquivo: ", self.name)
         print("Inicio do programa: ", self.initial_value)
-        print("Tabela de símbolos: ")
-        print(json.dumps(self.tabela_simbolos, sort_keys=True, indent=4))
+        print("------------Tabela de símbolos: \n")
+        for simbolo in self.tabela_simbolos:
+            print("                  | " + simbolo + " <- " + self.tabela_simbolos[simbolo] + " |")
+        print("\n------------Fim da tabela de símbolos\n")
