@@ -1,4 +1,4 @@
-
+import sys
 
 class MontadorDoisPassos(object):
 
@@ -153,3 +153,13 @@ class MontadorDoisPassos(object):
         for simbolo in self.tabela_simbolos:
             print("                  | " + simbolo + " <- " + self.tabela_simbolos[simbolo] + " |")
         print("\n------------Fim da tabela de símbolos\n")
+
+        orig_stdout = sys.stdout
+        f = open('prints/symbols.txt', 'w')
+        sys.stdout = f
+        print("------------Tabela de símbolos: \n")
+        for simbolo in self.tabela_simbolos:
+            print("                  | " + simbolo + " <- " + self.tabela_simbolos[simbolo] + " |")
+        print("\n------------Fim da tabela de símbolos\n")
+        sys.stdout = orig_stdout
+        f.close()
