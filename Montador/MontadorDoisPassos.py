@@ -1,5 +1,6 @@
 import sys
 
+
 class MontadorDoisPassos(object):
 
     tabela_mnemonicos = {
@@ -65,6 +66,11 @@ class MontadorDoisPassos(object):
                 self.identify_symbols(lista_simbolos)
                 self.index += 1
 
+            for simbolo in self.tabela_simbolos:
+                if self.tabela_simbolos[simbolo] is None:
+                    error = "[Error] Undefined symbol: '%s' " % simbolo
+                    return False, error
+
             self.index = 0
             while self.index < len(self.lista_de_eventos):
                 evento = self.lista_de_eventos[self.index]
@@ -75,6 +81,7 @@ class MontadorDoisPassos(object):
                 self.index += 1
 
             self.object_file.close()
+            return True, None
 
     def _verifica_primeira_linha(self):
         evento = self.lista_de_eventos[0]
@@ -151,15 +158,25 @@ class MontadorDoisPassos(object):
         print("Inicio do programa: ", self.initial_value)
         print("------------Tabela de símbolos: \n")
         for simbolo in self.tabela_simbolos:
-            print("                  | " + simbolo + " <- " + self.tabela_simbolos[simbolo] + " |")
+            if self.tabela_simbolos[simbolo]:
+                print("                  | " + simbolo + " <- " + self.tabela_simbolos[simbolo] + " |")
+            else:
+                print("   Undefined ---->| " + simbolo + " <- " + "None" + " |")
         print("\n------------Fim da tabela de símbolos\n")
 
         orig_stdout = sys.stdout
         f = open('prints/symbols.txt', 'w')
         sys.stdout = f
+        error_symbol = None
         print("------------Tabela de símbolos: \n")
         for simbolo in self.tabela_simbolos:
-            print("                  | " + simbolo + " <- " + self.tabela_simbolos[simbolo] + " |")
+            if self.tabela_simbolos[simbolo]:
+                print("                  | " + simbolo + " <- " + self.tabela_simbolos[simbolo] + " |")
+            else:
+                error_symbol = simbolo
+                print("   Undefined ---->| " + simbolo + " <- " + "None" + " |")
+        if error_symbol:
+            print("\n[Error] Undefined symbol: '%s' " % error_symbol)
         print("\n------------Fim da tabela de símbolos\n")
         sys.stdout = orig_stdout
         f.close()

@@ -10,14 +10,17 @@ montador = MontadorDoisPassos()
 
 def executar_codigo(file):
     montador.set_lista_de_eventos('simbolic_code_files/'+file+'.txt')
-    montador.run()
+    assembly_success, error = montador.run()
     montador.print_tabela_simbolos()
-    loader.set_lista_de_eventos('object_files/'+file+'.o')
-    loader.run()
-    maquina.print_memoria(64)
-    maquina.set_pc(loader.get_initial_pc())
-    maquina.set_rotinas_dict()
-    maquina.run()
+    if assembly_success:
+        loader.set_lista_de_eventos('object_files/'+file+'.o')
+        loader.run()
+        maquina.print_memoria(64)
+        maquina.set_pc(loader.get_initial_pc())
+        maquina.set_rotinas_dict()
+        maquina.run()
+    else:
+        print(error)
 
 
 def main():
