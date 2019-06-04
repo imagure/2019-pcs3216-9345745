@@ -4,7 +4,7 @@ class Rotinas(object):
     @staticmethod
     def add(a, b):
         print("add: ", a, "+", b, "=", a + b)
-        return a+b
+        return a + b
 
     @staticmethod
     def subtract(a, b):
@@ -14,12 +14,12 @@ class Rotinas(object):
     @staticmethod
     def multiply(a, b):
         print("multiply: ", a, "x", b, "=", a * b)
-        return a * b
+        return int(a * b)
 
     @staticmethod
     def divide(a, b):
         print("divide: ", a, ":", b, "=", a / b)
-        return a / b
+        return int(a / b)
 
     @staticmethod
     def jump(endereco):
