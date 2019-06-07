@@ -57,14 +57,20 @@ class MontadorDoisPassos(object):
     def run(self):
 
         is_valid = self._verifica_primeira_linha()
-
+        error1 = ""
         if is_valid:
             self.index = 0
             while self.index < len(self.lista_de_eventos):
                 evento = self.lista_de_eventos[self.index]
                 lista_simbolos = self.find_symbols(evento)
-                self.identify_symbols(lista_simbolos)
+                try:
+                    self.identify_symbols(lista_simbolos)
+                except Exception as error:
+                    error1 = error
                 self.index += 1
+
+            if error1:
+                return False, error1
 
             for simbolo in self.tabela_simbolos:
                 if self.tabela_simbolos[simbolo] is None:
@@ -106,7 +112,13 @@ class MontadorDoisPassos(object):
     def identify_symbols(self, lista_simbolos):
 
         if lista_simbolos[0] not in self.tabela_mnemonicos:
-            self.tabela_simbolos[lista_simbolos[0]] = "%04x" % (self.initial_value+self.index*2)
+            if lista_simbolos[0] not in self.tabela_simbolos:
+                self.tabela_simbolos[lista_simbolos[0]] = "%04x" % (self.initial_value+self.index*2)
+            else:
+                if self.tabela_simbolos[lista_simbolos[0]]:
+                    raise Exception('[Error] Double definition of value: {}'.format(lista_simbolos[0]))
+                else:
+                    self.tabela_simbolos[lista_simbolos[0]] = "%04x" % (self.initial_value + self.index * 2)
 
         for simbolo in lista_simbolos:
             if simbolo not in self.tabela_mnemonicos and simbolo[0] != "/":
